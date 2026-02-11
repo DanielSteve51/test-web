@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/DanielSteve51/test-web.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'mvn clean package'
@@ -17,7 +11,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'scp target/*.war ec2-user@18.61.44.158:/opt/tomcat/webapps/'
+                sh 'scp target/*.war ec2-user@TOMCAT-IP:/opt/tomcat/webapps/'
             }
         }
     }
