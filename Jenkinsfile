@@ -11,7 +11,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'scp target/*.war ec2-user@TOMCAT-IP:/opt/tomcat/webapps/'
+                sh 'scp target/*.war ec2-user@18.61.44.158:/opt/tomcat/webapps/'
             }
         }
     }
