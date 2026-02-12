@@ -32,10 +32,10 @@ pipeline {
 
     post {
         success {
-            echo "Deployment successful 🚀"
+            echo "Success"
         }
         failure {
-            echo "Deployment failed ❌"
+            echo "Failed"
         }
     }
 }
