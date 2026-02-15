@@ -3,11 +3,20 @@ pipeline {
 
     environment {
         DEPLOY_PATH = "/opt/tomcat/webapps"
-        WAR_NAME = "test_web.war"
     }
 
     stages {
 
+        stage('Read POM') {
+              steps {
+                script {
+                      def pom = readMavenPom file: 'pom.xml'
+                      env.WAR_NAME = "${pom.build.finalName}.war"
+                      echo "WAR file: ${env.WAR_NAME}"
+                }
+              }
+            }
+        
         stage('Checkout') {
             steps {
                 checkout scm
