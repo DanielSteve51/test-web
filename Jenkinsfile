@@ -12,7 +12,7 @@ pipeline {
             steps {
                 checkout scm
                 echo "Cloning Git Repo"
-                sleep 5
+                sh 'sleep 5'
             }
         }
 
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 sh 'mvn clean package'
                 echo "Building .war"
-                sleep 5
+                sh 'sleep 5'
             }
         }
 
@@ -30,7 +30,7 @@ pipeline {
                 scp $WORKSPACE/target/${WAR_NAME} ec2-user@${TOMCAT_IP}:${DEPLOY_PATH}/
                 """
                 echo "Deplying to Tomcat"
-                sleep 5
+                sh 'sleep 5'
             }
         }
     }
