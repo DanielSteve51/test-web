@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 sh """
-                scp $WORKSPACE/target/${env.WAR_NAME} ec2-user@${TOMCAT_IP}:${DEPLOY_PATH}/
+                scp $WORKSPACE/target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
                 """
                 echo "Deploying to Tomcat"
             }
