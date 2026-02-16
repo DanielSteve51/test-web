@@ -38,11 +38,14 @@ pipeline {
 
         stage('Deploy to Tomcat') {
     steps {
-        sh """
-        scp -o StrictHostKeyChecking=no target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
-        """
+        sshagent(['tomcat-ssh']) {
+            sh """
+            scp -o StrictHostKeyChecking=no target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
+            """
+        }
     }
 }
+
 
     }
 
