@@ -37,13 +37,13 @@ pipeline {
         }
 
         stage('Deploy to Tomcat') {
-            steps {
-                sh """
-                scp $WORKSPACE/target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
-                """
-                echo "Deploying to Tomcat"
-            }
-        }
+    steps {
+        sh """
+        scp -o StrictHostKeyChecking=no target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
+        """
+    }
+}
+
     }
 
     post {
