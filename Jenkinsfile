@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        TOMCAT_IP = "18.60.154.150"
         DEPLOY_PATH = "/opt/tomcat/webapps"
     }
 
