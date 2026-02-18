@@ -35,17 +35,15 @@ pipeline {
                 echo "Building .war"
             }
         }
-
         stage('Deploy to Tomcat') {
-    steps {
-        sshagent(['tomcat-ssh']) {
-            sh """
-            scp -o StrictHostKeyChecking=no target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
-            """
-        }
-    }
-}
-
+            steps {
+                    sh """
+                    scp -i /var/lib/jenkins/.ssh/id_rsa \
+                    -o StrictHostKeyChecking=no \
+                    target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
+                    """
+                    }
+            }
 
     }
 
