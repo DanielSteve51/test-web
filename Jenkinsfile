@@ -36,14 +36,22 @@ pipeline {
             }
         }
         stage('Deploy to Tomcat') {
-            steps {
-                    sh """
-                    scp -i /var/lib/jenkins/.ssh/id_rsa \
-                    -o StrictHostKeyChecking=no \
-                    target/${env.WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
-                    """
-                    }
-            }
+    steps {
+        sh '''
+        echo "=== DEBUG ==="
+        whoami
+        echo "HOME=$HOME"
+        pwd
+        ls -ld $HOME
+        ls -l $HOME/.ssh || echo ".ssh not found"
+        echo "=== SCP ==="
+        scp -v -i $HOME/.ssh/id_rsa \
+        -o StrictHostKeyChecking=no \
+        target/${WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
+        '''
+    }
+}
+
 
     }
 
