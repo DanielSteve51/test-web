@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     environment {
-        TOMCAT_IP = "40.192.6.76"
+        TOMCAT_IP = "18.61.35.229"
         DEPLOY_PATH = "/opt/tomcat/webapps"
-        SSH_KEY = "C:\\Users\\Daniel Steve\\.ssh\\ec2-tomcat.pem"
     }
-
-
 
     stages {
 
         stage('Checkout') {
             steps {
                 checkout scm
-                echo "Repository cloned"
+                echo "Cloning Git Repo"
             }
         }
 
@@ -34,36 +31,39 @@ pipeline {
 
         stage('Build WAR') {
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
+                echo "Building .war"
             }
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonar-server') {
-                    bat 'mvn sonar:sonar'
-                }
+                    steps {
+                        withSonarQubeEnv('sonar-server') {
+                            sh 'mvn sonar:sonar'
+                            }
+                        }
             }
-        }
+
 
         stage('Deploy to Tomcat') {
-            steps {
-                bat """
-                scp -i %SSH_KEY% ^
-                -o StrictHostKeyChecking=no ^
-                target\\%WAR_NAME% ^
-                ubuntu@%TOMCAT_IP%:%DEPLOY_PATH%/
-                """
-            }
-        }
+    steps {
+        sh '''
+        scp -o StrictHostKeyChecking=no \
+        target/${WAR_NAME} ubuntu@${TOMCAT_IP}:${DEPLOY_PATH}/
+        '''
+    }
+}
+
+
+
     }
 
     post {
         success {
-            echo "Deployment Successful"
+            echo "Success"
         }
         failure {
-            echo "Pipeline Failed"
+            echo "Failed"
         }
     }
 }
