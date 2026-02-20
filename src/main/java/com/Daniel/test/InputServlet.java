@@ -23,6 +23,8 @@ public class InputServlet extends HttpServlet {
             int b = Integer.parseInt(request.getParameter("b"));
             out.println("<h2>Result: " + (a / b) + "</h2>");
         }
+        //  catch (ArithmeticException e) {
+        //     out.println("<h3>Cannot divide by zero</h3>");}
           catch (NumberFormatException e) {
             out.println("<h3>Not a number</h3>");
         } catch (Exception e) {
