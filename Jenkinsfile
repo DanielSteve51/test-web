@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TOMCAT_IP = "18.61.35.229"
+        TOMCAT_IP = "40.192.6.76"
         DEPLOY_PATH = "/opt/tomcat/webapps"
     }
 
@@ -36,13 +36,13 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-                    steps {
-                        withSonarQubeEnv('sonar-server') {
-                            sh 'mvn sonar:sonar'
-                            }
-                        }
-            }
+        // stage('SonarQube Analysis') {
+        //             steps {
+        //                 withSonarQubeEnv('sonar-server') {
+        //                     sh 'mvn sonar:sonar'
+        //                     }
+        //                 }
+        //     }
 
 
         stage('Deploy to Tomcat') {
