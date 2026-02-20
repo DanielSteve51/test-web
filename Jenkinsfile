@@ -7,9 +7,7 @@ pipeline {
         SSH_KEY = "C:\\Users\\Daniel Steve\\.ssh\\ec2-tomcat.pem"
     }
 
-    tools {
-        maven 'Maven3'
-    }
+
 
     stages {
 
