@@ -2,8 +2,12 @@ pipeline {
     agent any
 
     environment {
-        TOMCAT_IP = "40.192.6.76"
+        //TOMCAT_IP = "40.192.6.76"
         DEPLOY_PATH = "/opt/tomcat/webapps"
+    }
+
+    parameters{
+            string(name: 'TOMCAT_IP', defaultValue:'', description:'TOMCAT IP')
     }
 
     stages {
